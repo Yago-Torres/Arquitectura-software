@@ -11,7 +11,7 @@ using namespace std;
 class ConcreteObserver : public AbstractObserver {
     private:
         string observerState;
-        ConcreteSubject* sujeto;
+        vector<ConcreteSubject*> sujeto;
 
     public:
         void Update();
