@@ -12,7 +12,7 @@
 using namespace std;
 
 const string zgzurl="https://api.open-meteo.com/v1/forecast?latitude=41.6561&longitude=-0.8773&hourly=temperature_2m&forecast_days=1";
-const string tdlurl="https://api.open-meteo.com/v1/forecast?latitude=42.0744&longitude=-1.6372&hourly=temperature_2m&forecast_days=1";
+const string tdlurl="https://api.open-meteo.com/v1/forecast?latitude=42.0744&longitude=-1.6372&hourly=temperature_2m&forecast_days=1";  
 
 
 
