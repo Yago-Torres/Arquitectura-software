@@ -3,10 +3,12 @@
 
 using namespace std;
 
+class ConcreteSubject;
+
 class AbstractObserver {
 public:
     AbstractObserver();      
-    virtual void Update() = 0;   
+    virtual void Update(ConcreteSubject* subject) = 0;   
 };
 
 #endif

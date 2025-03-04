@@ -25,9 +25,9 @@ public:
 
     void Detach(AbstractObserver* o);
 
-    void Notify();
+    void Notify(ConcreteSubject* subj);
 
-    void checkSources();
+    string UpdateInfo();
 };
 
 #endif

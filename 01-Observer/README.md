@@ -1,8 +1,6 @@
-### Readme lol
-hola
-soy un readme
-me vas a leer
+## Readme
 
+El programa ha sido realizado en c++. Se han empleado algunas librerías explicadas a continuación.
 
 #### Dependencias:
 
@@ -16,11 +14,8 @@ sudo apt-get install libcurl4-openssl-dev
 
 [Library docs](https://curl.se/libcurl/c/)
 
-## TODO
+## 
 
-- Solve "dangling subjects" issue (either delete subjects or, if we allow moire than one subject, delete from the vector)
-- Solve "subject state consistent", right now we call the notify before updating subject state, we will always be 1 "info" behind
-- We should priorize push model, since the subject knows the observers want their info
-- Add only update me of this hour's temperature feature? (punto 7)
-- Add a observer observing various subjects + wait for all subjects to be updated before notifying (Change manager)
-- 
+El código implementado en c++ es el equivalente a una aplicación del tiempo, con diversos observadores y sujetos siguiendo el patrón observador. Esto se encuentra explicado en más profundidad en el documento pdf del zip.
+
+Actualmente, hay dos "opciones" de ejecución, TEST y real. Esto es debido a que la api del tiempo empleada realiza una actualización cada hora, lo que es poco cómodo para ver el funcionamiento de la aplicación. Con una flag agregada en el makefile, TEST, se solventa esto creando y añadiendo en el documento de texto de registro valores simulados.

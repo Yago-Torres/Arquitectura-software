@@ -14,7 +14,7 @@ class ConcreteSubject : public AbstractSubject {
         string GetState();
         void SetState (string state);
         ConcreteSubject(string mYtxt, string url);
-        void getSources(); 
+        void checkSources(); 
         
 };
 

@@ -14,28 +14,11 @@ string ConcreteSubject::GetState() {
 
 void ConcreteSubject::SetState (string state) {
     subjectState = state;
-    cout << "Subject: My state has just changed to: " << subjectState << endl;
-    this->Notify();
+    cout << endl << "Subject " << mytxt << ": My state has just changed to: " << subjectState << endl << endl;
+    this->Notify(this);
 }
 
 
-void ConcreteSubject::getSources() {
-    this->checkSources();
-    // mal hecho, en el checksources es dnd estoy cambiando el estado y dicendo a los observers que miren, por lo q siempre irán un cambio por detras. 
-    // son las 1 am y me niego a tocar un alinea más de cmasmas hoy
-
-    std::ifstream infile("files/" + mytxt);
-    if (!infile.is_open()) {
-        std::cerr << "Error al abrir el archivo: files/" << mytxt << std::endl;
-        return;
-    }
-    // Leer la última línea del archivo
-    std::string last_line, line;
-    while (std::getline(infile, line)) {
-        last_line = line;
-    }
-    infile.close();
-
-
-    this->SetState(last_line);
+void ConcreteSubject::checkSources() {
+    SetState(AbstractSubject::UpdateInfo());
 }

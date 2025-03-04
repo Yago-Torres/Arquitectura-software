@@ -12,10 +12,17 @@ class ConcreteObserver : public AbstractObserver {
     private:
         string observerState;
         vector<ConcreteSubject*> sujeto;
+        // variable nombre para facilitar la visualización del funcionamiento
+        string nombre;
+
+        // método privado para buscar el índice del sujeto
+        int buscarSujeto(ConcreteSubject* subject); 
+
 
     public:
-        void Update();
-        ConcreteObserver(ConcreteSubject* subject);
+        void Update(ConcreteSubject* subject) override;
+        ConcreteObserver(ConcreteSubject* subject, string nombre);
+        void AddSubject(ConcreteSubject* _subject);
 };
 
 #endif
