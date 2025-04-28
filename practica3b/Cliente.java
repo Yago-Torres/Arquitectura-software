@@ -6,7 +6,7 @@ import java.util.Vector;
 public class Cliente {
     public static void main(String[] args) {
         try{
-            String brokerName = "rmi://155.210.154.209:32000/Broker959";
+            String brokerName = "rmi://localhost:32000/Broker959";
             IBroker broker = (IBroker) Naming.lookup(brokerName); // CAMBIAR POR EL TIPO BROKER Q HAGAMOS
             Scanner s = new Scanner(System.in);
 

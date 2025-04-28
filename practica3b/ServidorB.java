@@ -24,12 +24,12 @@ public class ServidorB extends UnicastRemoteObject implements IServidorB{
     public static void main(String[] args) {
         try {
             IServidorB servidorA = new ServidorB();
-            String serverName = "rmi://155.210.154.207:32000/ServerB959";
+            String serverName = "rmi://localhost:32000/ServerB959";
             //System.setProperty("java.rmi.server.hostname","155.210.154.207");
             Naming.rebind(serverName, servidorA);
-            System.out.println("Servidor A listo como " + serverName);
+            System.out.println("Servidor B listo como " + serverName);
 
-            String broker = "rmi://155.210.154.209:32000/Broker959";
+            String broker = "rmi://localhost:32000/Broker959";
             IBroker brokerInterface= (IBroker) Naming.lookup(broker);
             brokerInterface.registrar_servidor("ServerB", serverName);
             System.out.println("Servidor B registrado en el broker ( a mano )");
@@ -38,7 +38,6 @@ public class ServidorB extends UnicastRemoteObject implements IServidorB{
 
             // Comienzo de un mini menu que pregunta que hacer, lo mejor para probarlo de forma interactiva y visual
             while (true) {
-                // Gestionar le menu aquí sin q se parezca en exceso al de mis colegones
                 System.out.println("Menú ServerB");
                 System.out.println("1. Dar de alta un servicio");
                 System.out.println("2. Dar de baja un servicio");
@@ -53,18 +52,18 @@ public class ServidorB extends UnicastRemoteObject implements IServidorB{
                         String nomServicio = s.nextLine();
                         Vector<String> param = new Vector<>();
                         
-                        System.out.print("Introduzca parametros de entrada (int, bool, string, char, double). Enter para terminar:");
-
-                        // Lee parametros hasta q hay uno vacío
-                        String tipoParam;
-                        while (!(tipoParam = s.nextLine().trim()).isEmpty()) {
-                            param.add(tipoParam);
-                            System.out.print("Siga con parámetros de entrada (int, bool, string, char, double). Enter para terminar:");
+                        while (true) {
+                        System.out.print("Ingrese el tipo de parámetro (int, bool, string, char, double) o presione enter para finalizar: ");
+                        String tipoParam = s.nextLine().trim();
+                        if (tipoParam.isEmpty()) {
+                            break;
                         }
-                        System.out.print("Introduzca tipo de retorno de la función (int, bool, string, char, double o void)");
-                        String tipoRetorno = s.nextLine().trim();
+                        param.add(tipoParam);
+                        }
+                        System.out.print("Ingrese el tipo de retorno (int, bool, string, char, double o void): ");
+                        String tipoRetorno = s.nextLine();
                         brokerInterface.alta_servicio("ServerB", nomServicio, param, tipoRetorno);
-                        System.out.println("Servicio '" + nomServicio + "' añadido con exito.");
+                        System.out.println("Servicio '" + nomServicio + "' dado de alta.");
                         break;
                     case 2: // Eliminar servicio ya registrado
                         System.out.print("Introduzca el nombre del servicio a eliminar: ");
@@ -82,7 +81,7 @@ public class ServidorB extends UnicastRemoteObject implements IServidorB{
             }
 
         } catch (Exception e) {
-            System.err.println("Error en el servidor A: " + e.getMessage());
+            System.err.println("Error en el servidor B: " + e.getMessage());
             e.printStackTrace();
         }
     }

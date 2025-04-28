@@ -36,11 +36,6 @@ public class Service implements Serializable {
 
     @Override
     public String toString() {
-        return "Servicio{" +
-                "nombre='" + nombre + '\'' +
-                ", server='" + server + '\'' +
-                ", params=" + params +
-                ", tipoDevuelto='" + tipoDevuelto + '\'' +
-                '}';
+        return "Servidor: " + server + ", Servicio: " + nombre + ", Parámetros: " + params + ", Tipo de Retorno: " + tipoDevuelto;
     }
   }
