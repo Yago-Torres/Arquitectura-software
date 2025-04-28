@@ -1,12 +1,12 @@
 
 import java.rmi.Naming;
-import java.util.Scanner;
 import java.util.Vector;
+import java.util.Scanner;
 
 public class Cliente {
     public static void main(String[] args) {
         try{
-            String brokerName = "rmi://155.210.154.209:32000/Broker959";
+            String brokerName = "rmi://155.207.154.209:32000/Broker959";
             IBroker broker = (IBroker) Naming.lookup(brokerName); // CAMBIAR POR EL TIPO BROKER Q HAGAMOS
             Scanner s = new Scanner(System.in);
 
@@ -28,7 +28,7 @@ public class Cliente {
                         Services services = broker.lista_services();
                         System.out.print("Servicios en el broker: ");
                         System.out.println(services);
-                        break;
+                
                     case 2:
                         System.out.print("Introduzca nombre del servicio a ejecutar: ");
                         String service = s.nextLine();
@@ -44,7 +44,6 @@ public class Cliente {
                         }
                         Answer answer = broker.ejecutar_servicio(service, param);
                         System.out.println("Respuesta del servicio: " + answer);
-                        break;
 
                     case 3:
                         System.out.print("Introduzca nombre del servicio a ejecutar (async): ");
@@ -60,18 +59,16 @@ public class Cliente {
                             param.add(entrada);
                         }
                         try {
-                            broker.ejecutar_servicio_async(servicio, param); // PARTE EXTRAAAAAAAAAAAA
-                            System.out.println("Se ha enviado solicitud async para " + servicio + ".");
-                            break;
+                            // broker.ejecutar_servicio_async(service, param); // PARTE EXTRAAAAAAAAAAAA
+                            // System.out.println("Se ha enviado solicitud async para " + service + ".");
                         } catch (Exception e) {
                             System.out.println("Error al enviar la solicitud: " + e.getMessage());
                         }
                     case 4:
                         System.out.print("Introduzca nombre del s1rvicio del que obtener respuesta: ");
-                        String serviceAsync = s.nextLine();
-                        Answer respuesta = broker.obtener_respuesta_async(serviceAsync);
-                        System.out.println("Respuesta asíncrona: " + respuesta);
-                        break;
+                        //String service = s.nextLine();
+                        // AVANZADO RESPUESTAS ASÍNCRONAS - Answer answer = broker.respuesta_async(service);
+                        System.out.print("Aún no imlementado sry");
                     case 5: // Salir del sistema
                         System.out.print("Saliendo del cliente");
                         s.close();

@@ -12,7 +12,4 @@ public interface IBroker extends Remote {
     void alta_servicio(String nombre_servidor, String nom_servicio, Vector<String> parametros_servicio, String tipo_retorno) throws RemoteException;
 
     void baja_servicio(String nombre_servidor, String nom_servicio) throws RemoteException;
-
-    void ejecutar_servicio_async(String nom_servicio, Vector<Object> parametros_servicio) throws RemoteException;
-    Answer obtener_respuesta_async(String nom_servicio) throws RemoteException;
 }
