@@ -74,7 +74,6 @@ public class Cliente {
                         break;
                     case 5: // Salir del sistema
                         System.out.print("Saliendo del cliente");
-                        s.close();
                         break;
 
                     default:
