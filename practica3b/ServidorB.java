@@ -24,12 +24,12 @@ public class ServidorB extends UnicastRemoteObject implements IServidorB{
     public static void main(String[] args) {
         try {
             IServidorB servidorA = new ServidorB();
-            String serverName = "rmi://localhost:32000/ServerB959";
+            String serverName = "rmi://155.210.154.207:32000/ServerB959";
             //System.setProperty("java.rmi.server.hostname","155.210.154.207");
             Naming.rebind(serverName, servidorA);
             System.out.println("Servidor B listo como " + serverName);
 
-            String broker = "rmi://localhost:32000/Broker959";
+            String broker = "rmi://155.210.154.209:32000/Broker959";
             IBroker brokerInterface= (IBroker) Naming.lookup(broker);
             brokerInterface.registrar_servidor("ServerB", serverName);
             System.out.println("Servidor B registrado en el broker ( a mano )");
