@@ -1,26 +1,47 @@
-# Implementación de la cola de mensajes
-# Constructor y destructor (unneded?)
-# Funciones añadir a la cola, recuperar de la cola, eliminar
+# cola.py
+import threading
+from collections import deque
+from mensaje import Mensaje
+import time
 
-# Avanzado -> todo lo related con ACKS
-# Avanzado -> listado y eliminación de colas
-# Avanzado -> Política fair dispatch (tutorial 2, buscar)
-# Avanzado -> Persistencia de mensajes, recuperación trás caida
-# Avanzado -> Separación de máquinas, distribuido
+class Cola:
+    def __init__(self, max_size=1000):
+        self.messages = deque(maxlen=max_size)
+        self.subscribers = []
+        self.lock = threading.Lock()
+        self.delivered_messages = set()
 
+    def agregar_mensaje(self, mensaje: Mensaje):
+        with self.lock:
+            self.messages.append(mensaje)
 
-# Declarar cola será IDEMPOTENTE (singleton) por lo que llamar a declarar_cola(params) con mismos params no crea más colas
+    def obtener_mensaje(self, ack_timeout=30):
+        with self.lock:
+            for msg in self.messages:
+                if not msg.delivered and msg.message_id not in self.delivered_messages:
+                    msg.delivered = True
+                    msg.timestamp = time.time()  # Reset TTL after delivery
+                    return msg
+            return None
 
-# publicar(params) operacion que llama el publicador para publiar a la cola. esto estará hecho en broker no aquí, pero habrá una funcion aquí que gestione la publicación
+    def confirmar_entrega(self, message_id):
+        with self.lock:
+            self.delivered_messages.add(message_id)
 
-# same shi con consumir
+    def limpiar_expirados(self):
+        with self.lock:
+            self.messages = deque(
+                [msg for msg in self.messages if not msg.is_expired()],
+                maxlen=self.messages.maxlen
+            )
 
-# publicar en una cola que NO existe descarta el mensajes
+    def agregar_subscriptor(self, callback):
+        with self.lock:
+            self.subscribers.append(callback)
 
-# consumer implementa un callback que MOM invoca cuando hay un mensaje en la cola
-
-# Máximo tiempo de vida qeu pasa un mensaje en la cola es 5 minutos, trás esto se eliminar
-
-# round robin si hay varios consumidores suscritos a la misma cola
-
-
+    def remover_subscriptor(self, callback):
+        with self.lock:
+            try:
+                self.subscribers.remove(callback)
+            except ValueError:
+                pass
